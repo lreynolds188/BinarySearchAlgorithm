@@ -11,6 +11,15 @@ import java.awt.geom.Ellipse2D;
 
 public class Plot extends ApplicationFrame {
 
+    /**
+     * Plots a graph using the sent parameters with the JFreeChart library.
+     *
+     * @param appTitle
+     * @param title
+     * @param xAxisLabel
+     * @param yAxisLabel
+     * @param dataset
+     */
     public Plot(String appTitle, String title, String xAxisLabel, String yAxisLabel, DefaultCategoryDataset dataset) {
         super(appTitle);
         JFreeChart lineChart = ChartFactory.createLineChart(

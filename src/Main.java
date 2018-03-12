@@ -19,6 +19,9 @@ public class Main extends Search{
         PlotGraph("Basic Operations", "Basic Operations vs Dataset Size", "Dataset Size", "Number of Basic Operations", operationsDataSet);
     }
 
+    /**
+     *  The bulk of the code is called here to run the array creation, search function, dataset building, execution timing, and operation count.
+     */
     public static void ArraySearchTest(){
         for (int size = 1000; size <= 20000; size += 1000){
             long[] timeArrNano = new long[20];
@@ -43,6 +46,15 @@ public class Main extends Search{
         }
     }
 
+    /**
+     * Creates a new plot class and sends it the required variables to plot the graph.
+     *
+     * @param appTitle
+     * @param title
+     * @param xAxisLabel
+     * @param yAxisLabel
+     * @param dataSet
+     */
     public static void PlotGraph(String appTitle, String title, String xAxisLabel, String yAxisLabel, DefaultCategoryDataset dataSet){
         Plot chart = new Plot(appTitle, title, xAxisLabel, yAxisLabel, dataSet);
         chart.pack( );
