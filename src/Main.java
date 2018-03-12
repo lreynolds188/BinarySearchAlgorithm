@@ -21,9 +21,10 @@ public class Main extends Search{
 
     public static void ArraySearchTest(){
         for (int size = 1000; size <= 20000; size += 1000){
-            long[] timeArr = new long[20];
             long[] timeArrNano = new long[20];
             int[] operationArr = new int[20];
+            totalTimeNano = 0;
+            totalOperations = 0;
             for (int i = 0; i < 20; i++) {
                 arr = CreateArray(size);
                 int key = rand.nextInt(size);
@@ -31,13 +32,14 @@ public class Main extends Search{
                 operationArr[i] = BinarySearch(arr, key, true);
                 endTimeNano = System.nanoTime();
                 timeArrNano[i] = endTimeNano - startTimeNano;
+                System.out.println(size + "\t" + operationArr[i] + "\t" + timeArrNano[i]);
             }
-            for (int i = 0; i < timeArr.length; i++){
+            for (int i = 0; i < timeArrNano.length; i++){
                 totalTimeNano += timeArrNano[i];
                 totalOperations += operationArr[i];
             }
-            operationsDataSet.addValue((totalOperations / 20), "Search Algorithm", Integer.toString(size));
-            execTimeDataSet.addValue((totalTimeNano / 20), "Search Algorithm", Integer.toString(size));
+            operationsDataSet.addValue((totalOperations / 20), "Search Algorithm Average", Integer.toString(size));
+            execTimeDataSet.addValue((totalTimeNano / 20), "Search Algorithm Average", Integer.toString(size));
         }
     }
 
