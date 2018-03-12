@@ -8,34 +8,35 @@ public class Main extends Search{
     static int[] arr;
     static Random rand = new Random();
     static long startTimeNano, endTimeNano, totalTimeNano;
-    static long startTime, endTime, totalTime;
+    static int totalOperations;
     static DefaultCategoryDataset execTimeDataSet = new DefaultCategoryDataset( );
+    static DefaultCategoryDataset operationsDataSet = new DefaultCategoryDataset( );
+
 
     public static void main(String[] args){
         ArraySearchTest();
         PlotGraph("Exectuion Time", "Execution Time vs Dataset Size", "Dataset Size", "Execution Time (ns)", execTimeDataSet);
+        PlotGraph("Basic Operations", "Basic Operations vs Dataset Size", "Dataset Size", "Number of Basic Operations", operationsDataSet);
     }
 
     public static void ArraySearchTest(){
         for (int size = 1000; size <= 20000; size += 1000){
             long[] timeArr = new long[20];
             long[] timeArrNano = new long[20];
+            int[] operationArr = new int[20];
             for (int i = 0; i < 20; i++) {
                 arr = CreateArray(size);
-                arr = SortArray(arr);
                 int key = rand.nextInt(size);
-                startTime = System.currentTimeMillis();
                 startTimeNano = System.nanoTime();
-                BinarySearch(arr, key);
-                endTime = System.currentTimeMillis();
+                operationArr[i] = BinarySearch(arr, key, true);
                 endTimeNano = System.nanoTime();
                 timeArrNano[i] = endTimeNano - startTimeNano;
-                timeArr[i] = endTime - startTime;
             }
             for (int i = 0; i < timeArr.length; i++){
-                totalTime += timeArr[i];
                 totalTimeNano += timeArrNano[i];
+                totalOperations += operationArr[i];
             }
+            operationsDataSet.addValue((totalOperations / 20), "Search Algorithm", Integer.toString(size));
             execTimeDataSet.addValue((totalTimeNano / 20), "Search Algorithm", Integer.toString(size));
         }
     }

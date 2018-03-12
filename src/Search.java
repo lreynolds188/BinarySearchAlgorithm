@@ -9,16 +9,28 @@ public class Search {
      *  @param key - the value to be searched for.
      *  @return
      */
-    public static int BinarySearch(int[] arr, int key){
+    public static int BinarySearch(int[] arr, int key, boolean testIterations){
+        int iterations = 0;
+        int index = 0;
         int curIndex;
         int range = arr.length;
-        for (int i = 0; i < range; i++){
-            curIndex = (i + arr.length)/2;
-            if (arr[curIndex] == key){
+
+        while (index < range){
+            iterations++;
+            curIndex = (index + range)/2;
+            if (key == arr[curIndex]){
+                if (testIterations) {
+                    return iterations;
+                }
                 return curIndex;
             } else if (key < arr[curIndex]){
                 range = curIndex-1;
+            } else {
+                index = curIndex+1;
             }
+        }
+        if (testIterations) {
+            return iterations;
         }
         return -1;
     }
@@ -35,7 +47,7 @@ public class Search {
         for (int i = 0; i < size; i++){
             arr[i] = rand.nextInt(size);
         }
-        return arr;
+        return SortArray(arr);
     }
 
     /**
