@@ -1,3 +1,4 @@
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
 
 import java.util.Random;
@@ -8,10 +9,11 @@ public class Main extends Search{
     static Random rand = new Random();
     static long startTimeNano, endTimeNano, totalTimeNano;
     static long startTime, endTime, totalTime;
+    static DefaultCategoryDataset execTimeDataSet = new DefaultCategoryDataset( );
 
     public static void main(String[] args){
         ArraySearchTest();
-        PlotGraph();
+        PlotGraph("Exectuion Time", "Execution Time vs Dataset Size", "Dataset Size", "Execution Time (ns)", execTimeDataSet);
     }
 
     public static void ArraySearchTest(){
@@ -21,38 +23,25 @@ public class Main extends Search{
             for (int i = 0; i < 20; i++) {
                 arr = CreateArray(size);
                 arr = SortArray(arr);
-                System.out.print("Array search size: " + size);
-
                 int key = rand.nextInt(size);
                 startTime = System.currentTimeMillis();
                 startTimeNano = System.nanoTime();
-                int searchRes = BinarySearch(arr, key);
+                BinarySearch(arr, key);
                 endTime = System.currentTimeMillis();
                 endTimeNano = System.nanoTime();
-
-                System.out.print("\tSearched for " + key + "... ");
-                if (searchRes != -1) {
-                    System.out.print("Found match at index " + searchRes + "\n");
-                } else {
-                    System.out.print("Did not find a match.\n");
-                }
                 timeArrNano[i] = endTimeNano - startTimeNano;
                 timeArr[i] = endTime - startTime;
-
             }
             for (int i = 0; i < timeArr.length; i++){
                 totalTime += timeArr[i];
                 totalTimeNano += timeArrNano[i];
             }
-            System.out.print("Average test time was: " + (totalTime / 20) + "ms / " + (totalTimeNano / 20) + "ns\n");
+            execTimeDataSet.addValue((totalTimeNano / 20), "Search Algorithm", Integer.toString(size));
         }
     }
 
-    public static void PlotGraph(){
-        Plot chart = new Plot(
-                "School Vs Years" ,
-                "Numer of Schools vs years");
-
+    public static void PlotGraph(String appTitle, String title, String xAxisLabel, String yAxisLabel, DefaultCategoryDataset dataSet){
+        Plot chart = new Plot(appTitle, title, xAxisLabel, yAxisLabel, dataSet);
         chart.pack( );
         RefineryUtilities.centerFrameOnScreen( chart );
         chart.setVisible( true );

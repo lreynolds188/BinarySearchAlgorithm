@@ -1,34 +1,32 @@
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import java.awt.geom.Ellipse2D;
+
 public class Plot extends ApplicationFrame {
 
-    public Plot( String applicationTitle , String chartTitle ) {
-        super(applicationTitle);
+    public Plot(String appTitle, String title, String xAxisLabel, String yAxisLabel, DefaultCategoryDataset dataset) {
+        super(appTitle);
         JFreeChart lineChart = ChartFactory.createLineChart(
-                chartTitle,
-                "Years","Number of Schools",
-                createDataset(),
+                title,
+                xAxisLabel,yAxisLabel,
+                dataset,
                 PlotOrientation.VERTICAL,
                 true,true,false);
 
-        ChartPanel chartPanel = new ChartPanel( lineChart );
-        chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-        setContentPane( chartPanel );
-    }
+        CategoryPlot plot = (CategoryPlot) lineChart.getPlot();
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+        renderer.setBaseShapesVisible(true);
+        renderer.setSeriesShape(0, new Ellipse2D.Double(-3d, -3d, 6d, 6d));
 
-    private DefaultCategoryDataset createDataset( ) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-        dataset.addValue( 15 , "schools" , "1970" );
-        dataset.addValue( 30 , "schools" , "1980" );
-        dataset.addValue( 60 , "schools" ,  "1990" );
-        dataset.addValue( 120 , "schools" , "2000" );
-        dataset.addValue( 240 , "schools" , "2010" );
-        dataset.addValue( 300 , "schools" , "2014" );
-        return dataset;
+        ChartPanel chartPanel = new ChartPanel( lineChart );
+        chartPanel.setPreferredSize( new java.awt.Dimension( 1280 , 800 ) );
+        setContentPane( chartPanel );
     }
 }
