@@ -9,30 +9,50 @@ public class Search {
      *  @param key - the value to be searched for.
      *  @return
      */
-    public static int BinarySearch(int[] arr, int key, boolean testIterations){
-        int iterations = 0;
-        int index = 0;
-        int curIndex;
-        int range = arr.length;
+    public static int BinarySearch(int[] arr, int key){
+        int lower = 0;
+        int middle;
+        int upper = arr.length;
 
-        while (index < range){
-            iterations++;
-            curIndex = (index + range)/2;
-            if (key == arr[curIndex]){
-                if (testIterations) {
-                    return iterations;
-                }
-                return curIndex;
-            } else if (key < arr[curIndex]){
-                range = curIndex-1;
+        while (lower < upper){
+            middle = (lower + upper)/2;
+            if (key == arr[middle]){
+                return middle;
+            } else if (key < arr[middle]){
+                upper = middle-1;
             } else {
-                index = curIndex+1;
+                lower = middle+1;
             }
         }
-        if (testIterations) {
-            return iterations;
-        }
         return -1;
+    }
+
+    /**
+     *  Implements non-recursive binary search of an int array and return the number of basic operation implemented
+     *  throughout the process.
+     *
+     *  @param arr - an array containing values to be searched.
+     *  @param key - the value to be searched for.
+     *  @return
+     */
+    public static int BinarySearchBasicOperations(int[] arr, int key){
+        int iterations = 0;
+        int lower = 0;
+        int middle;
+        int upper = arr.length;
+
+        while (lower < upper){
+            iterations++;
+            middle = (lower + upper)/2;
+            if (key == arr[middle]){
+                return iterations;
+            } else if (key < arr[middle]){
+                upper = middle-1;
+            } else {
+                lower = middle+1;
+            }
+        }
+        return iterations;
     }
 
     /**
@@ -60,6 +80,22 @@ public class Search {
         int n = arr.length;
         int temp = 0;
         for (int i = 0; i < n; i++){
+            for(int j = 1; j < (n-i); j++){
+                if(arr[j - 1] > arr[j]){
+                    //swap elements
+                    temp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+
+    public static long[] SortArray(long[] arr) {
+        long n = arr.length;
+        long temp;
+        for (long i = 0; i < n; i++){
             for(int j = 1; j < (n-i); j++){
                 if(arr[j - 1] > arr[j]){
                     //swap elements

@@ -19,8 +19,27 @@ public class Main extends Search{
         PlotGraph("Basic Operations", "Basic Operations vs Dataset Size", "Dataset Size", "Number of Basic Operations", operationsDataSet);
     }
 
+    public static void WarmUp(){
+        for (int size = 1000; size <= 10000; size += 1000){
+            long[] timeArrNano = new long[20];
+            int[] operationArr = new int[20];
+            totalTimeNano = 0;
+            totalOperations = 0;
+            for (int i = 0; i < 20; i++) {
+                arr = CreateArray(size);
+                int key = rand.nextInt(size);
+                startTimeNano = System.nanoTime();
+                operationArr[i] = BinarySearchBasicOperations(arr, key);
+                endTimeNano = System.nanoTime();
+                timeArrNano[i] = endTimeNano - startTimeNano;
+                System.out.println(size + "\t" + operationArr[i] + "\t" + timeArrNano[i]);
+            }
+        }
+    }
+
     /**
-     *  The bulk of the code is called here to run the array creation, search function, dataset building, execution timing, and operation count.
+     *  The bulk of the code is implemented here to run; the array creation, search function, dataset construction,
+     *  execution timing, and operation count.
      */
     public static void ArraySearchTest(){
         for (int size = 1000; size <= 20000; size += 1000){
@@ -32,17 +51,19 @@ public class Main extends Search{
                 arr = CreateArray(size);
                 int key = rand.nextInt(size);
                 startTimeNano = System.nanoTime();
-                operationArr[i] = BinarySearch(arr, key, true);
+                operationArr[i] = BinarySearchBasicOperations(arr, key);
                 endTimeNano = System.nanoTime();
                 timeArrNano[i] = endTimeNano - startTimeNano;
                 System.out.println(size + "\t" + operationArr[i] + "\t" + timeArrNano[i]);
             }
-            for (int i = 0; i < timeArrNano.length; i++){
+            SortArray(timeArrNano);
+            SortArray(operationArr);
+            for (int i = 5; i < timeArrNano.length - 5; i++){
                 totalTimeNano += timeArrNano[i];
                 totalOperations += operationArr[i];
             }
-            operationsDataSet.addValue((totalOperations / 20), "Search Algorithm Average", Integer.toString(size));
-            execTimeDataSet.addValue((totalTimeNano / 20), "Search Algorithm Average", Integer.toString(size));
+            operationsDataSet.addValue((totalOperations / 10), "Basic Operations (avg)", Integer.toString(size));
+            execTimeDataSet.addValue((totalTimeNano / 10), "Execution time (avg)", Integer.toString(size));
         }
     }
 
