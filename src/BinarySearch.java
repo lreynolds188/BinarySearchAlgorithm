@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Search {
+public class BinarySearch {
 
     /**
      *  Implements non-recursive binary search of an int array.
@@ -9,7 +9,7 @@ public class Search {
      *  @param key - the value to be searched for.
      *  @return
      */
-    public static int BinarySearch(int[] arr, int key){
+    public static int BinarySearchValue(int[] arr, int key){
         int lower = 0;
         int middle;
         int upper = arr.length;

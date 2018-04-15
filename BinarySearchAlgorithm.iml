@@ -17,6 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="java" level="project" />
+    <orderEntry type="library" name="assets" level="project" />
   </component>
 </module>

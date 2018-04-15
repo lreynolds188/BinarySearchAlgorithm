@@ -3,7 +3,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import java.util.Random;
 
-public class Main extends Search{
+public class Main extends BinarySearch{
 
     static int[] arr;
     static Random rand = new Random();
