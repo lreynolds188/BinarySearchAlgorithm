@@ -31,8 +31,6 @@ public class Main extends BinarySearch{
                 startTimeNano = System.nanoTime();
                 operationArr[i] = BinarySearchBasicOperations(arr, key);
                 endTimeNano = System.nanoTime();
-                timeArrNano[i] = endTimeNano - startTimeNano;
-                System.out.println(size + "\t" + operationArr[i] + "\t" + timeArrNano[i]);
             }
         }
     }
@@ -54,7 +52,7 @@ public class Main extends BinarySearch{
                 operationArr[i] = BinarySearchBasicOperations(arr, key);
                 endTimeNano = System.nanoTime();
                 timeArrNano[i] = endTimeNano - startTimeNano;
-                System.out.println(size + "\t" + operationArr[i] + "\t" + timeArrNano[i]);
+                System.out.println("ArrSize: " + size + "\t\tTestNum: " + (i+1) + "\t\tBasicOper: " + operationArr[i] + "\t\tTimeNano: " + timeArrNano[i]);
             }
             SortArray(timeArrNano);
             SortArray(operationArr);
@@ -62,8 +60,11 @@ public class Main extends BinarySearch{
                 totalTimeNano += timeArrNano[i];
                 totalOperations += operationArr[i];
             }
-            operationsDataSet.addValue((totalOperations / 10), "Basic Operations (avg)", Integer.toString(size));
-            execTimeDataSet.addValue((totalTimeNano / 10), "Execution time (avg)", Integer.toString(size));
+            totalOperations /= 10;
+            totalTimeNano /= 10;
+            operationsDataSet.addValue(totalOperations, "Basic Operations (avg)", Integer.toString(size));
+            execTimeDataSet.addValue(totalTimeNano, "Execution time (avg)", Integer.toString(size));
+            System.out.println("***\tArrSize: " + size + "\t\tAvgBasicOper: " + totalOperations + "\t\tAvgTimeNano: " + totalTimeNano + "\t***");
         }
     }
 
