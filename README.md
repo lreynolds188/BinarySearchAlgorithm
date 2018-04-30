@@ -1,0 +1,3 @@
+# BinarySearchAnalysis
+
+In this assignment, you will analyse the average-case efficiency of a given algorithm experimentally. First you will identify the basic operation of the algorithm and count the number of times the basic operation is performed by the algorithm, to confirm its predicted order of growth. Then you will measure its actual execution time, to determine whether the implementation introduces additional overheads (or optimisations!) not allowed for in the theoretical analysis. Finally, you must produce a detailed report describing your findings. This must all be done with a high degree of professionalism, as would be required when analysing an algorithm to be used in some critical application.
